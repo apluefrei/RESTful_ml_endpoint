@@ -7,7 +7,7 @@ pipeline {
     stage('Train model') {
       steps {
         bat 'python -m pip install -r requirements.txt'
-        bat 'pickle model.pkl'
+        bat 'python test_main.py'
       }
     }
     stage('Run flask app') {
