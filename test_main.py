@@ -1,34 +1,18 @@
 import unittest
-from app import app
+import requests
 
-class FlaskTestCase(unittest.TestCase):
-
+class ClassifyTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = app.test_client()
+        self.url = "http://localhost:5000/api/classify"
 
-    def test_home(self):
-        response = self.app.get('/')
-        self.assertEqual(response.status_code, 200)
+    def test_classify(self):
+        # Sample pixels data
+        pixels = [0 for i in range(754)]
+        data = {'pixels': pixels}
 
-    def test_hello(self):
-        response = self.app.get('/api/hello')
+        response = requests.post(self.url, json=data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, {'hello': 'world'})
-
-    def test_hello_name(self):
-        response = self.app.get('/api/hello/ben')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json, {'hello': 'ben'})
-
-    def test_whoami(self):
-        response = self.app.get('/api/whoami')
-        self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(response.json['ip'])
-
-    def test_whoami_name(self):
-        response = self.app.get('/api/whoami/ben')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json['name'], 'ben')
+        self.assertEqual(response.json()['classification'], 'expected_result')
 
 if __name__ == '__main__':
     unittest.main()
