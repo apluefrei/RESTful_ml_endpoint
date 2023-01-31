@@ -1,73 +1,24 @@
-
-"""
-simple python flask application
-"""
-
-##########################################################################
-## Imports
-##########################################################################
-
-import os
-
-from flask import Flask
-from flask import request
-from flask import render_template
-from flask import url_for
-from flask.json import jsonify
-
-##########################################################################
-## Application Setup
-##########################################################################
+from flask import Flask, request
+import numpy as np
+import pickle
 
 app = Flask(__name__)
 
-##########################################################################
-## Routes
-##########################################################################
+# Load the trained model
+with open("model.pkl", "rb") as f:
+    model = pickle.load(f)
 
-@app.route("/")
-def home():
-    return render_template("home.html")
+@app.route("/classify", methods=["POST"])
+def classify():
+    # Read the data from the request
+    data = request.get_json()
+    pixels = np.array(data["pixels"]).reshape(1, -1)
 
-@app.route("/api/hello")
-def hello():
-    """
-    Return a hello message
-    """
-    return jsonify({"hello": "world"})
+    # Use the model to make a prediction
+    pred = model.predict(pixels)[0]
 
-@app.route("/api/hello/<name>")
-def hello_name(name):
-    """
-    Return a hello message with name
-    """
-    return jsonify({"hello": name})
+    # Return the result as a JSON response
+    return {"class": int(pred)}
 
-@app.route("/api/whoami")
-def whoami():
-    """
-    Return a JSON object with the name, ip, and user agent
-    """
-    return jsonify(
-        name=request.remote_addr,
-        ip=request.remote_addr,
-        useragent=request.user_agent.string
-    )
-
-@app.route("/api/whoami/<name>")
-def whoami_name(name):
-    """
-    Return a JSON object with the name, ip, and user agent
-    """
-    return jsonify(
-        name=name,
-        ip=request.remote_addr,
-        useragent=request.user_agent.string
-    )
-
-##########################################################################
-## Main
-##########################################################################
-
-if __name__ == '__main__':
+if __name__ == "main":
     app.run()
