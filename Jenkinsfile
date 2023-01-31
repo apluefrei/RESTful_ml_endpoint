@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Train model') {
       steps {
-        bat 'python install -r requirements.txt'
+        bat 'python -m pip install -r requirements.txt''
         bat 'pickle model.pkl'
       }
     }
