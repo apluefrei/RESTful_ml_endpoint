@@ -3,7 +3,7 @@ import requests
 
 class ClassifyTestCase(unittest.TestCase):
     def setUp(self):
-        self.url = "http://localhost:5000/api/classify"
+        self.url = "http://localhost:5000/classify"
 
     def test_classify(self):
         # Sample pixels data
