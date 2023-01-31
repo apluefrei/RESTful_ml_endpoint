@@ -8,7 +8,7 @@ app = Flask(__name__)
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
-@app.route("/classify", methods=["POST"])
+@app.route("api/classify", methods=["POST"])
 def classify():
     # Read the data from the request
     data = request.get_json()
