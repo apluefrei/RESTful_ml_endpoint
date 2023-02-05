@@ -2,17 +2,23 @@ import unittest
 import requests
 
 class ClassifyTestCase(unittest.TestCase):
+    
+    def create_app(self):
+        return app
+    
     def setUp(self):
         self.url = "http://localhost:5000/classify"
 
     def test_classify(self):
         # Sample pixels data
-        pixels = [0 for i in range(754)]
+        pixels = [0 for i in range(784)]
         data = {'pixels': pixels}
 
         response = requests.post(self.url, json=data)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['classification'], 'expected_result')
+        expected_result = {"class": '0'}
+
+        assert result == expected_result, f"Expected {expected_result} but got {result}"
+        print("Test passed!")
 
 if __name__ == '__main__':
     unittest.main()
