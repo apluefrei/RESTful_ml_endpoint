@@ -18,10 +18,10 @@ def classify():
     pixels = np.array(data["pixels"]).reshape(1, -1)
 
     # Use the model to make a prediction
-    pred = model.predict(pixels)[0]
+    pred = int(np.round(model.predict(pixels)[0][0]))
 
     # Return the result as a JSON response
-    return {"class": int(pred)}
+    return {"class": str(pred)}
 
 if __name__ == "main":
     app.run()
