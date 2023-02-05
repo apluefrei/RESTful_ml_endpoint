@@ -6,7 +6,11 @@ pipeline {
   stages {
     stage('Train model') {
       steps {
-        bat 'python -m pip install -r requirements.txt'
+        bat 'python -m pip install --upgrade pip'
+        bat 'python -m pip install Flask'
+        bat 'python -m pip install requests'
+        bat 'python -m pip install numpy'
+        bat 'python -m pip install keras'
         bat 'python test_main.py'
       }
     }
