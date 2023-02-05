@@ -1,12 +1,15 @@
 from flask import Flask, request
 import numpy as np
-import pickle
+# import pickle
+import tensorflow as tf
 
 app = Flask(__name__)
 
 # Load the trained model
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
+# with open("model.pkl", "rb") as f:
+#     model = pickle.load(f)
+
+model = tf.keras.models.load_model("model.h5")
 
 @app.route("/classify", methods=["POST"])
 def classify():
