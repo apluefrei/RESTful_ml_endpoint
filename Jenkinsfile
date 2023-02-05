@@ -8,7 +8,7 @@ pipeline {
       steps {
         bat 'python -m pip install --upgrade pip'
         bat 'python -m pip install -r requirements.txt'
-        bat 'python app.py'
+//         bat 'python app.py'
         bat 'python test_main.py'
       }
     }
