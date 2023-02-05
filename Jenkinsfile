@@ -11,7 +11,7 @@ pipeline {
         bat 'python -m pip install requests'
         bat 'python -m pip install numpy'
         bat 'python -m pip install keras'
-        bat 'python -m pip install tensorflow'
+        bat 'python -m pip install https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.8.0-py3-none-any.whl'
         bat 'python app.py'
         bat 'python test_main.py'
       }
